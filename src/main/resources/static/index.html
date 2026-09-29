@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+</head>
+<body>
+
+    <h1>Calculator</h1>
+
+    <label>Numero 1: <input type="number"id="num1"></label>
+    <label>Numero 2: <input type="number" id="num2"></label>
+
+    <select id="operation">
+        <option value="sum">Somar</option>
+        <option value="subtraction">Subtrair</option>
+        <option value="multiplication">Multiplicar</option>
+        <option value="dividion">Dividir</option>
+    </select>
+
+    <button onclick="calculator()">Calculate</button>
+    <label>Result: <input type="text" id="result" readonly></label>
+
+    <script>
+        async function calculator(){
+
+            const a = document.getElementById("num1").value
+            const b = document.getElementById("num2").value
+
+            const operation = document.getElementById("operation").value
+
+            const url = `/calculator/${operation}?a=${a}&b=${b}`
+
+            const response = await fetch(url)
+
+            const field = document.getElementById("result")
+
+            if (response.ok){
+                field.value = await response.text()
+            } else {
+                field.value = "Error"
+            }
+
+        }
+    </script>
+</body>
+</html>
